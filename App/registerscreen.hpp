@@ -3,26 +3,22 @@
 #include <QWidget>
 #include <QLineEdit>
 #include "BackendlessAPI.hpp"
-#include "registerscreen.hpp"
 
-class SignInScreen: public QWidget
+class RegisterScreen: public QWidget
 {
     Q_OBJECT
 
 public:
-    SignInScreen(QWidget *parent = nullptr);
-    ~SignInScreen();
+    RegisterScreen(BackendlessAPI*, QWidget *parent = nullptr);
+    ~RegisterScreen();
 
 private:
-    BackendlessAPI api;
+    BackendlessAPI* api;
 
 private:
     QVBoxLayout layout;
     QLineEdit textFieldLogin;
     QLineEdit textFieldPassword;
-    QPushButton signInButton;
     QPushButton registerButton;
-
-    RegisterScreen registerScreen;
 };
 
