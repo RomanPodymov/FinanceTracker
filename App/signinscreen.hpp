@@ -1,4 +1,7 @@
+#include <QVBoxLayout>
+#include <QPushButton>
 #include <QWidget>
+#include <QLineEdit>
 #include "BackendlessAPI.hpp"
 
 class SignInScreen: public QWidget
@@ -11,5 +14,11 @@ public:
 
 private:
     BackendlessAPI api;
+
+private:
+    QVBoxLayout layout;
+    QLineEdit textFieldLogin;
+    QLineEdit textFieldPassword;
+    QPushButton signInButton;
 };
 
