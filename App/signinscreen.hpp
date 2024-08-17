@@ -14,6 +14,9 @@ public:
     ~SignInScreen();
 
 private:
+    QJsonObject readLocalConfigurationJSON();
+
+private:
     BackendlessAPI api;
 
 private:

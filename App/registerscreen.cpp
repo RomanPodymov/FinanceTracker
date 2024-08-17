@@ -1,7 +1,7 @@
 #include <QMessageBox>
 #include "registerscreen.hpp"
 
-RegisterScreen::RegisterScreen(BackendlessAPI* _api, QWidget *parent): QWidget(parent),
+RegisterScreen::RegisterScreen(BackendlessAPI& _api, QWidget *parent): QWidget(parent),
     api(api),
     textFieldLogin(this), textFieldPassword(this), registerButton(this) {
     layout.addWidget(&textFieldLogin);
@@ -9,7 +9,7 @@ RegisterScreen::RegisterScreen(BackendlessAPI* _api, QWidget *parent): QWidget(p
     layout.addWidget(&registerButton);
     registerButton.setText("Register");
     QObject::connect(&registerButton, &QPushButton::clicked, this, [&]() {
-        api->userAPI.registerUser(BackendlessRegisterUser(textFieldLogin.text(), textFieldPassword.text(), ""));
+        api.userAPI.registerUser(BackendlessRegisterUser(textFieldLogin.text(), textFieldPassword.text(), ""));
     });
     /*QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
 

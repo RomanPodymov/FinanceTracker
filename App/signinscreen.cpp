@@ -1,9 +1,11 @@
 #include <QMessageBox>
+#include <QFile>
+#include <QJsonObject>
 #include "signinscreen.hpp"
 
 SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
-    api(BackendlessAPI("", "")),
-    registerScreen(&api),
+    api(BackendlessAPI(readLocalConfigurationJSON()["APP_ID"].toString(), readLocalConfigurationJSON()["REST_API_KEY"].toString())),
+    registerScreen(api),
     textFieldLogin(this), textFieldPassword(this), signInButton(this), registerButton(this) {
     layout.addWidget(&textFieldLogin);
     layout.addWidget(&textFieldPassword);
@@ -19,7 +21,9 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
         hide();
     });
     QObject::connect(&api.userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
-
+        QMessageBox msgBox;
+        msgBox.setText("Correct credentials");
+        msgBox.exec();
     });
     QObject::connect(&api.userAPI, &BackendlessUserAPI::signInUserErrorBackendless, this, [&]() {
         QMessageBox msgBox;
@@ -31,4 +35,15 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
 
 SignInScreen::~SignInScreen() {
 
+}
+
+
+QJsonObject SignInScreen::readLocalConfigurationJSON() {
+    QFile localConfigurationFile(":/configurations/local.json");
+    localConfigurationFile.open(QIODevice::ReadOnly);
+
+    const auto& localConfigurationFileContent = QString::fromUtf8(localConfigurationFile.readAll()).simplified();
+    const auto& localConfigurationFileJSON = QJsonDocument::fromJson(localConfigurationFileContent.toUtf8());
+    localConfigurationFile.close();
+    return localConfigurationFileJSON.object();
 }

@@ -18,3 +18,6 @@ INCLUDEPATH += \
 
 LIBS += \
     -L../BackendlessQt -lBackendlessQt
+
+RESOURCES += \
+    appresources.qrc

@@ -9,11 +9,11 @@ class RegisterScreen: public QWidget
     Q_OBJECT
 
 public:
-    RegisterScreen(BackendlessAPI*, QWidget *parent = nullptr);
+    RegisterScreen(BackendlessAPI&, QWidget *parent = nullptr);
     ~RegisterScreen();
 
 private:
-    BackendlessAPI* api;
+    BackendlessAPI& api;
 
 private:
     QVBoxLayout layout;
