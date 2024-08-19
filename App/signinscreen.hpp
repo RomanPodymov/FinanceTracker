@@ -5,6 +5,8 @@
 #include "BackendlessAPI.hpp"
 #include "registerscreen.hpp"
 
+extern BackendlessAPI* api;
+
 class SignInScreen: public QWidget
 {
     Q_OBJECT
@@ -12,12 +14,6 @@ class SignInScreen: public QWidget
 public:
     SignInScreen(QWidget *parent = nullptr);
     ~SignInScreen();
-
-private:
-    QJsonObject readLocalConfigurationJSON();
-
-private:
-    BackendlessAPI api;
 
 private:
     QVBoxLayout layout;

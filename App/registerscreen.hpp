@@ -4,16 +4,15 @@
 #include <QLineEdit>
 #include "BackendlessAPI.hpp"
 
+extern BackendlessAPI* api;
+
 class RegisterScreen: public QWidget
 {
     Q_OBJECT
 
 public:
-    RegisterScreen(BackendlessAPI&, QWidget *parent = nullptr);
+    RegisterScreen(QWidget *parent = nullptr);
     ~RegisterScreen();
-
-private:
-    BackendlessAPI& api;
 
 private:
     QVBoxLayout layout;
