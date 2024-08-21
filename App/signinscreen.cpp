@@ -2,7 +2,6 @@
 #include "signinscreen.hpp"
 
 SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
-    registerScreen(),
     textFieldLogin(this), textFieldPassword(this), signInButton(this), registerButton(this) {
     layout.addWidget(&textFieldLogin);
     layout.addWidget(&textFieldPassword);
@@ -14,7 +13,7 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
         api->userAPI.signInUser(textFieldLogin.text(), textFieldPassword.text());
     });
     QObject::connect(&registerButton, &QPushButton::clicked, this, [&]() {
-        registerScreen.show();;
+        registerScreen->show();;
         hide();
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {

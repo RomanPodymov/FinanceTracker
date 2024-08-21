@@ -5,6 +5,10 @@
 #include "BackendlessAPI.hpp"
 #include "registerscreen.hpp"
 
+#ifndef SIGNIN_SCREEN_H
+#define SIGNIN_SCREEN_H
+
+extern RegisterScreen* registerScreen;
 extern BackendlessAPI* api;
 
 class SignInScreen: public QWidget
@@ -21,7 +25,6 @@ private:
     QLineEdit textFieldPassword;
     QPushButton signInButton;
     QPushButton registerButton;
-
-    RegisterScreen registerScreen;
 };
 
+#endif

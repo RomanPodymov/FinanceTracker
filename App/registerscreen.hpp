@@ -4,6 +4,9 @@
 #include <QLineEdit>
 #include "BackendlessAPI.hpp"
 
+#ifndef REGISTER_SCREEN_H
+#define REGISTER_SCREEN_H
+
 extern BackendlessAPI* api;
 
 class RegisterScreen: public QWidget
@@ -21,3 +24,4 @@ private:
     QPushButton registerButton;
 };
 
+#endif

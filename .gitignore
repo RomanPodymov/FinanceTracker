@@ -2,3 +2,4 @@ FinanceTracker.pro.user
 build/*
 App/build/*
 App.pro.user
+App/Configurations/local_configuration.json
