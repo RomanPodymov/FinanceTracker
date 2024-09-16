@@ -1,5 +1,8 @@
 #include <QMessageBox>
 #include "signinscreen.hpp"
+#include "coordinator.hpp"
+
+extern Coordinator* coordinator;
 
 SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
     textFieldLogin(this), textFieldPassword(this), signInButton(this), registerButton(this) {
@@ -13,8 +16,7 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
         api->userAPI.signInUser(textFieldLogin.text(), textFieldPassword.text());
     });
     QObject::connect(&registerButton, &QPushButton::clicked, this, [&]() {
-        registerScreen->show();;
-        hide();
+        coordinator->openRegister();
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
         QMessageBox msgBox;

@@ -1,18 +1,15 @@
+#ifndef SIGNIN_SCREEN_H
+#define SIGNIN_SCREEN_H
+
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QWidget>
 #include <QLineEdit>
 #include "BackendlessAPI.hpp"
-#include "registerscreen.hpp"
 
-#ifndef SIGNIN_SCREEN_H
-#define SIGNIN_SCREEN_H
-
-extern RegisterScreen* registerScreen;
 extern BackendlessAPI* api;
 
-class SignInScreen: public QWidget
-{
+class SignInScreen: public QWidget {
     Q_OBJECT
 
 public:

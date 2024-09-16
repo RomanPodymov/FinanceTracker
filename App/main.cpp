@@ -1,5 +1,4 @@
-#include "signinscreen.hpp"
-#include "registerscreen.hpp"
+#include "coordinator.hpp"
 #include <QApplication>
 #include <QFile>
 #include <QJsonObject>
@@ -14,19 +13,17 @@ QJsonObject readLocalConfigurationJSON() {
     return localConfigurationFileJSON.object();
 }
 
+Coordinator* coordinator;
 BackendlessAPI* api;
-SignInScreen* signInScreen;
-RegisterScreen* registerScreen;
 
 int main(int argc, char *argv[])
 {
     QApplication myApp(argc, argv);
 
     api = new BackendlessAPI(readLocalConfigurationJSON()["APP_ID"].toString(), readLocalConfigurationJSON()["REST_API_KEY"].toString());
-    signInScreen = new SignInScreen();
-    registerScreen = new RegisterScreen();
 
-    signInScreen->show();
+    coordinator = new Coordinator();
+    coordinator->openSignIn();
 
     return myApp.exec();
 }
