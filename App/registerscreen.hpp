@@ -9,6 +9,24 @@
 
 extern BackendlessAPI* api;
 
+struct BackendlessRegisterUser: BasicBackendlessRegisterUser {
+public:
+    BackendlessRegisterUser(
+        QString _email,
+        QString _password,
+        QString _name
+    ): BasicBackendlessRegisterUser(_email, _password), name(_name) { }
+
+    QMap<QString, QString> getAllParams() override {
+        QMap<QString, QString> result = {{"name", name}};
+        result.insert(BasicBackendlessRegisterUser::getAllParams());
+        return result;
+    }
+
+protected:
+    QString name;
+};
+
 class RegisterScreen: public QWidget
 {
     Q_OBJECT

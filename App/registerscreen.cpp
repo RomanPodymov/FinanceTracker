@@ -8,7 +8,8 @@ RegisterScreen::RegisterScreen(QWidget *parent): QWidget(parent),
     layout.addWidget(&registerButton);
     registerButton.setText("Register");
     QObject::connect(&registerButton, &QPushButton::clicked, this, [&]() {
-        api->userAPI.registerUser(BackendlessRegisterUser(textFieldLogin.text(), textFieldPassword.text(), ""));
+        BackendlessRegisterUserRepresentable* user = new BackendlessRegisterUser(textFieldLogin.text(), textFieldPassword.text(), "name");
+        api->userAPI.registerUser(*user);
     });
     /*QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
 
