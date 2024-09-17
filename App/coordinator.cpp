@@ -16,11 +16,19 @@ void Coordinator::openError(QString text) {
 }
 
 void Coordinator::openSignIn() {
+    accountsScreen.hide();
     registerScreen.hide();
     signInScreen.show();
 }
 
 void Coordinator::openRegister() {
+    accountsScreen.hide();
     signInScreen.hide();
     registerScreen.show();
+}
+
+void Coordinator::openAccounts() {
+    signInScreen.hide();
+    registerScreen.hide();
+    accountsScreen.show();
 }

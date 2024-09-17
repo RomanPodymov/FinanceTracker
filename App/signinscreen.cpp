@@ -27,7 +27,7 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
         coordinator->openRegister();
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
-        coordinator->openError("Correct credentials");
+        coordinator->openAccounts();
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserErrorBackendless, this, [&]() {
         coordinator->openError("Wrong credentials");

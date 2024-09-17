@@ -11,16 +11,19 @@
 
 #include "signinscreen.hpp"
 #include "registerscreen.hpp"
+#include "accountsscreen.hpp"
 
 class Coordinator {
 public:
     void openError(QString);
     void openSignIn();
     void openRegister();
+    void openAccounts();
 
 private:
     SignInScreen signInScreen;
     RegisterScreen registerScreen;
+    AccountsScreen accountsScreen;
 };
 
 #endif
