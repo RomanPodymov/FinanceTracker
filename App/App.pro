@@ -28,6 +28,8 @@ RESOURCES += \
 
 ios {
     QMAKE_TARGET_BUNDLE_PREFIX = com.finance
-    QMAKE_DEVELOPMENT_TEAM = YOUR_TEAM_HERE
+    QMAKE_DEVELOPMENT_TEAM = YOUR_DEVELOPMENT_TEAM
     QMAKE_INFO_PLIST = iOS/Info.plist
+    ios_icon.files = $$files($$PWD/iOS/Icon.xcassets)
+    QMAKE_BUNDLE_DATA += ios_icon
 }
