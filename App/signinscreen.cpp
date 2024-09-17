@@ -1,3 +1,11 @@
+//
+//  signinscreen.cpp
+//  FinanceTracker
+//
+//  Created by Roman Podymov on 17/09/2024.
+//  Copyright © 2024 FinanceTracker. All rights reserved.
+//
+
 #include <QMessageBox>
 #include "signinscreen.hpp"
 #include "coordinator.hpp"

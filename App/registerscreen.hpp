@@ -1,3 +1,11 @@
+//
+//  registerscreen.hpp
+//  FinanceTracker
+//
+//  Created by Roman Podymov on 17/09/2024.
+//  Copyright © 2024 FinanceTracker. All rights reserved.
+//
+
 #ifndef REGISTER_SCREEN_H
 #define REGISTER_SCREEN_H
 
@@ -40,6 +48,7 @@ private:
     QLineEdit textFieldLogin;
     QLineEdit textFieldPassword;
     QPushButton registerButton;
+    BackendlessRegisterUserRepresentable* currentUser;
 };
 
 #endif
