@@ -27,14 +27,10 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
         coordinator->openRegister();
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
-        QMessageBox msgBox;
-        msgBox.setText("Correct credentials");
-        msgBox.exec();
+        coordinator->openError("Correct credentials");
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserErrorBackendless, this, [&]() {
-        QMessageBox msgBox;
-        msgBox.setText("Wrong credentials");
-        msgBox.exec();
+        coordinator->openError("Wrong credentials");
     });
     setLayout(&layout);
 }

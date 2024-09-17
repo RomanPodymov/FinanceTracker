@@ -8,6 +8,9 @@
 
 #include <QMessageBox>
 #include "registerscreen.hpp"
+#include "coordinator.hpp"
+
+extern Coordinator* coordinator;
 
 RegisterScreen::RegisterScreen(QWidget *parent): QWidget(parent),
     textFieldLogin(this), textFieldPassword(this), registerButton(this) {
@@ -20,13 +23,8 @@ RegisterScreen::RegisterScreen(QWidget *parent): QWidget(parent),
         currentUser = new BackendlessRegisterUser(textFieldLogin.text(), textFieldPassword.text(), "name");
         api->userAPI.registerUser(*currentUser);
     });
-    QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
-
-    });
-    QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserErrorBackendless, this, [&]() {
-        QMessageBox msgBox;
-        msgBox.setText("Wrong credentials");
-        msgBox.exec();
+    QObject::connect(&api->userAPI, &BackendlessUserAPI::registerUserResult, this, [&]() {
+        coordinator->openSignIn();
     });
     setLayout(&layout);
 }

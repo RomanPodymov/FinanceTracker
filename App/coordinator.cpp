@@ -6,7 +6,14 @@
 //  Copyright © 2024 FinanceTracker. All rights reserved.
 //
 
+#include <QMessageBox>
 #include "coordinator.hpp"
+
+void Coordinator::openError(QString text) {
+    QMessageBox msgBox;
+    msgBox.setText(text);
+    msgBox.exec();
+}
 
 void Coordinator::openSignIn() {
     registerScreen.hide();

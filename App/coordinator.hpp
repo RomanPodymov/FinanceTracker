@@ -14,6 +14,7 @@
 
 class Coordinator {
 public:
+    void openError(QString);
     void openSignIn();
     void openRegister();
 
