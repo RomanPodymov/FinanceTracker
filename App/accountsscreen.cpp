@@ -9,7 +9,7 @@
 #include <QMessageBox>
 #include <QJsonArray>
 #include <QJsonObject>
-#include "accountsscreen.hpp".hpp"
+#include "accountsscreen.hpp"
 #include "coordinator.hpp"
 
 extern Coordinator* coordinator;
@@ -33,7 +33,9 @@ AccountsScreen::AccountsScreen(QWidget *parent): QWidget(parent) {
             auto lessonObject = item.toObject();
             auto money = lessonObject["money"].toInt();
 
-            qDebug() << money;
+            QPushButton* button = new QPushButton(this);
+            button->setText(QString::number(money));
+            layout.addWidget(button);
         }
     });
     setLayout(&layout);
