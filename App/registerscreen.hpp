@@ -13,7 +13,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QLineEdit>
-#include "BackendlessAPI.hpp"
+#include "BackendlessQt/BackendlessAPI.hpp"
 
 extern BackendlessAPI* api;
 
@@ -25,8 +25,8 @@ public:
         QString _name
     ): BasicBackendlessRegisterUser(_email, _password), name(_name) { }
 
-    QMap<QString, QString> getAllParams() override {
-        QMap<QString, QString> result = {{"name", name}};
+    PostParams getAllParams() override {
+        PostParams result = {{"name", new StringPostParam(name)}};
         result.insert(BasicBackendlessRegisterUser::getAllParams());
         return result;
     }

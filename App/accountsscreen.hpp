@@ -13,7 +13,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QLineEdit>
-#include "BackendlessAPI.hpp"
+#include "BackendlessQt/BackendlessAPI.hpp"
 
 extern BackendlessAPI* api;
 

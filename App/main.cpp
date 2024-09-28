@@ -27,10 +27,13 @@ BackendlessAPI* api;
 int main(int argc, char *argv[]) {
     QApplication myApp(argc, argv);
 
-    api = new BackendlessAPI(readLocalConfigurationJSON()["APP_ID"].toString(), readLocalConfigurationJSON()["REST_API_KEY"].toString());
+    api = new BackendlessAPI(
+        readLocalConfigurationJSON()["APP_ID"].toString(),
+        readLocalConfigurationJSON()["REST_API_KEY"].toString()
+    );
 
     coordinator = new Coordinator();
-    coordinator->openSignIn();
+    coordinator->openRegister();
 
     return myApp.exec();
 }
