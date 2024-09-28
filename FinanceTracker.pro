@@ -24,3 +24,6 @@ HEADERS += \
     BackendlessQt/BackendlessAPI.hpp \
     BackendlessQt/BackendlessUserAPI.hpp \
     BackendlessQt/BackendlessUser.hpp \
+
+RESOURCES += \
+    App/appresources.qrc
