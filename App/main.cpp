@@ -33,7 +33,11 @@ int main(int argc, char *argv[]) {
     );
 
     coordinator = new Coordinator();
-    coordinator->openRegister();
+    if (api->userAPI.userToken().isEmpty()) {
+        coordinator->openSignIn();
+    } else {
+        coordinator->openAccounts();
+    }
 
     return myApp.exec();
 }
