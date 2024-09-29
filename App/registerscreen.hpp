@@ -23,16 +23,20 @@ public:
         QString _email,
         QString _password,
         QString _name
-    ): BasicBackendlessRegisterUser(_email, _password), name(_name) { }
+    ): BasicBackendlessRegisterUser(_email, _password), name(new StringPostParam(_name)) { }
+
+    ~BackendlessRegisterUser() override {
+        delete name;
+    }
 
     PostParams getAllParams() override {
-        PostParams result = {{"name", new StringPostParam(name)}};
+        PostParams result = {{"name", name}};
         result.insert(BasicBackendlessRegisterUser::getAllParams());
         return result;
     }
 
 protected:
-    QString name;
+    StringPostParam* name;
 };
 
 class RegisterScreen: public QWidget
