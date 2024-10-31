@@ -7,6 +7,7 @@
 //
 
 #include "coordinator.hpp"
+#include "BackendlessQt/StandardNetworkManager.hpp"
 #include <QApplication>
 #include <QFile>
 #include <QJsonObject>
@@ -23,11 +24,13 @@ QJsonObject readLocalConfigurationJSON() {
 
 Coordinator* coordinator;
 BackendlessAPI* api;
+AnyNetworkAccessManager* networkManager = new StandardNetworkManager();
 
 int main(int argc, char *argv[]) {
     QApplication myApp(argc, argv);
 
     api = new BackendlessAPI(
+        networkManager,
         readLocalConfigurationJSON()["APP_ID"].toString(),
         readLocalConfigurationJSON()["REST_API_KEY"].toString()
     );
@@ -38,6 +41,7 @@ int main(int argc, char *argv[]) {
     } else {
         coordinator->openAccounts();
     }
+    //coordinator->openAccounts();
 
     return myApp.exec();
 }

@@ -12,7 +12,8 @@ SOURCES += \
     BackendlessQt/BasicAPI.cpp \
     BackendlessQt/BackendlessAPI.cpp \
     BackendlessQt/BackendlessUserAPI.cpp \
-    BackendlessQt/BackendlessUser.cpp
+    BackendlessQt/BackendlessUser.cpp \
+    BackendlessQt/StandardNetworkManager.cpp
 
 HEADERS += \
     App/accountsscreen.hpp \
@@ -24,6 +25,7 @@ HEADERS += \
     BackendlessQt/BackendlessAPI.hpp \
     BackendlessQt/BackendlessUserAPI.hpp \
     BackendlessQt/BackendlessUser.hpp \
+    BackendlessQt/StandardNetworkManager.hpp
 
 RESOURCES += \
     App/appresources.qrc
