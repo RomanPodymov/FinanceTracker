@@ -24,11 +24,12 @@ QJsonObject readLocalConfigurationJSON() {
 
 Coordinator* coordinator;
 BackendlessAPI* api;
-AnyNetworkAccessManager* networkManager = new StandardNetworkManager();
+AnyNetworkAccessManager* networkManager;
 
 int main(int argc, char *argv[]) {
     QApplication myApp(argc, argv);
 
+    networkManager = new StandardNetworkManager();
     api = new BackendlessAPI(
         networkManager,
         readLocalConfigurationJSON()["APP_ID"].toString(),
@@ -41,7 +42,6 @@ int main(int argc, char *argv[]) {
     } else {
         coordinator->openAccounts();
     }
-    //coordinator->openAccounts();
 
     return myApp.exec();
 }
