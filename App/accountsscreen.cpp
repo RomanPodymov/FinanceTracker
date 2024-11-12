@@ -15,7 +15,7 @@
 extern Coordinator* coordinator;
 
 AccountsScreen::AccountsScreen(QWidget *parent): QWidget(parent) {
-    QObject::connect(api, &BackendlessAPI::loadTableItemsSuccess, this, [&](auto replyValue){
+    auto onLoadTableItemsSuccess = [&](QString replyValue) {
         qDebug() << "Loaded " << replyValue;
 
         QJsonParseError jsonError;
@@ -37,10 +37,20 @@ AccountsScreen::AccountsScreen(QWidget *parent): QWidget(parent) {
             button->setText(QString::number(money));
             layout.addWidget(button);
         }
-    });
-    setLayout(&layout);
+    };
 
-    api->loadTableItems("Accounts");
+    auto onGetCount = [&](int count) {
+        api->loadTableItems("Accounts", 1, 0);
+        return QtFuture::connect(api, &BackendlessAPI::loadTableItemsSuccess);
+    };
+
+    QtFuture::connect(api, &BackendlessAPI::getItemsCountSuccess)
+        .then(onGetCount)
+        .unwrap()
+        .then(onLoadTableItemsSuccess);
+
+    setLayout(&layout);
+    api->getItemsCount("Accounts");
 }
 
 AccountsScreen::~AccountsScreen() {
