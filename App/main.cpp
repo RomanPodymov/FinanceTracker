@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     );
 
     coordinator = new Coordinator();
-    if (api->userAPI.userToken().isEmpty()) {
+    if (api->userAPI.user().userToken.isEmpty()) {
         coordinator->openSignIn();
     } else {
         coordinator->openAccounts();
