@@ -34,8 +34,8 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
         api->userAPI.signInUser(
             textFieldLogin.text(),
             textFieldPassword.text(),
-            [&](auto bytes) {
-                return BackendlessSignInUser(bytes);
+            [](auto obj){
+                return new CustomSignIn(obj);
             }
         );
     });
@@ -43,9 +43,8 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
         coordinator->openRegister();
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
-        //CustomSignIn* ptr = (CustomSignIn*)(&());
         auto usr = api->userAPI.user();
-        qDebug() << usr.email;
+        qDebug() << ((CustomSignIn*)usr)->someCustomField;
 
         coordinator->openAccounts();
     });
