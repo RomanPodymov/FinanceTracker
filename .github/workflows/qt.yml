@@ -1,0 +1,23 @@
+name: QT
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.9.0'
+          cache: true
+        
+      - name: Compile
+        run: |
+             qmake FinanceTracker.pro
+             make -j12
