@@ -22,22 +22,6 @@ struct CustomSignIn: BackendlessSignInUser {
     }
 };
 
-class CustomSignInCoder: public SignInUserCoder {
-    void* decode(QJsonObject obj) override {
-        return new CustomSignIn(obj);
-    }
-
-    void write(QTextStream& stream, QString additionalToken) override {
-        // stream << (additionalValue.isEmpty() ? userValue->userToken : additionalValue);
-    }
-
-    void* read(QTextStream& stream) override {
-        auto result = new BackendlessSignInUser();
-        stream >> result->userToken;
-        return result;
-    }
-};
-
 SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
     textFieldLogin(this), textFieldPassword(this), signInButton(this), registerButton(this) {
     layout.addWidget(&textFieldLogin);
@@ -47,11 +31,9 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
     signInButton.setText("Sign in");
     registerButton.setText("Register");
     QObject::connect(&signInButton, &QPushButton::clicked, this, [&]() {
-        auto decoder = QSharedPointer<CustomSignInCoder>(new CustomSignInCoder());
         api->userAPI.signInUser(
             textFieldLogin.text(),
-            textFieldPassword.text(),
-            decoder
+            textFieldPassword.text()
         );
     });
     QObject::connect(&registerButton, &QPushButton::clicked, this, [&]() {
@@ -59,7 +41,7 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
         auto usr = api->userAPI.user();
-        qDebug() << ((CustomSignIn*)usr)->someCustomField;
+        // qDebug() << ((CustomSignIn*)usr)->someCustomField;
 
         coordinator->openAccounts();
     });

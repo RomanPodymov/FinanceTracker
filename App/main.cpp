@@ -48,6 +48,7 @@ int main(int argc, char *argv[]) {
     networkManager = new StandardNetworkManager();
     api = new BackendlessAPI(
         networkManager,
+        QSharedPointer<BackendlessSignInUserCoder>(new BackendlessSignInUserCoder()),
         readLocalConfigurationJSON()["APP_ID"].toString(),
         readLocalConfigurationJSON()["REST_API_KEY"].toString()
     );
