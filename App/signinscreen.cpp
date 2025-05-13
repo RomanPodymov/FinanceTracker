@@ -22,6 +22,12 @@ struct CustomSignIn: BackendlessSignInUser {
     }
 };
 
+class CustomSignInCoder: public SignInUserCoder {
+    void* decode(QJsonObject obj) {
+        return new CustomSignIn(obj);
+    }
+};
+
 SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
     textFieldLogin(this), textFieldPassword(this), signInButton(this), registerButton(this) {
     layout.addWidget(&textFieldLogin);
@@ -34,9 +40,7 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
         api->userAPI.signInUser(
             textFieldLogin.text(),
             textFieldPassword.text(),
-            [](auto obj){
-                return new CustomSignIn(obj);
-            }
+            new CustomSignInCoder()
         );
     });
     QObject::connect(&registerButton, &QPushButton::clicked, this, [&]() {
