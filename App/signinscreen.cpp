@@ -12,16 +12,6 @@
 
 extern Coordinator* coordinator;
 
-struct CustomSignIn: BackendlessSignInUser {
-    QString someCustomField;
-
-    CustomSignIn(
-        QJsonObject jsonObject
-    ): BackendlessSignInUser(jsonObject), someCustomField(jsonObject["someCustomField"].toString()) {
-
-    }
-};
-
 SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
     textFieldLogin(this), textFieldPassword(this), signInButton(this), registerButton(this) {
     layout.addWidget(&textFieldLogin);
