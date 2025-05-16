@@ -1,4 +1,3 @@
 [submodule "BackendlessQt"]
-	path = BackendlessQt
 	url = https://github.com/RomanPodymov/BackendlessQt
-	branch = main
+	branch = feature/more_custom
