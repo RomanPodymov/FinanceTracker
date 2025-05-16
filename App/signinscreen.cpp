@@ -31,7 +31,7 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
         auto usr = api->userAPI.user();
-        // qDebug() << ((CustomSignIn*)usr)->someCustomField;
+        qDebug() << ((CustomSignInUser*)usr)->someCustomField;
 
         coordinator->openAccounts();
     });
