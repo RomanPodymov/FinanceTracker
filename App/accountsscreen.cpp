@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QFuture>
 #include "accountsscreen.hpp"
 #include "coordinator.hpp"
 
@@ -51,6 +52,18 @@ AccountsScreen::AccountsScreen(QWidget *parent): QWidget(parent) {
 
     setLayout(&layout);
     api->getItemsCount("Accounts");
+
+    QtFuture::connect(api, &BackendlessAPI::loadTableItemsSuccess)
+        .then(onLoadTableItemsSuccess);
+
+    api->loadTableItems("Accounts", 100, 0, "money = 1002 OR money = 1001");
+
+    QPushButton* buttonLogout = new QPushButton(this);
+    buttonLogout->setText("Logout");
+    QObject::connect(buttonLogout, &QPushButton::clicked, this, [&]() {
+        api->userAPI.logout();
+    });
+    layout.addWidget(buttonLogout);
 }
 
 AccountsScreen::~AccountsScreen() {

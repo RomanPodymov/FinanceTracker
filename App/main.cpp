@@ -11,6 +11,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QJsonObject>
+#include <QFuture>
 
 QJsonObject readLocalConfigurationJSON() {
     QFile localConfigurationFile(":/configurations/local.json");
@@ -26,22 +27,35 @@ Coordinator* coordinator;
 BackendlessAPI* api;
 AnyNetworkAccessManager* networkManager;
 
+void reloadScreen() {
+    auto onLogoutSuccess = [](){
+        reloadScreen();
+    };
+    QtFuture::connect(&api->userAPI, &BackendlessUserAPI::logoutSuccess)
+        .then(onLogoutSuccess);
+    
+    auto user = api->userAPI.user();
+    if (!user || user->userToken.isEmpty()) {
+        coordinator->openSignIn();
+    } else {
+        coordinator->openAccounts();
+    }
+}
+
 int main(int argc, char *argv[]) {
     QApplication myApp(argc, argv);
 
     networkManager = new StandardNetworkManager();
     api = new BackendlessAPI(
         networkManager,
+        QSharedPointer<BackendlessSignInUserCoder>(new CustomSignInCoder()),
         readLocalConfigurationJSON()["APP_ID"].toString(),
         readLocalConfigurationJSON()["REST_API_KEY"].toString()
     );
 
     coordinator = new Coordinator();
-    if (api->userAPI.userToken().isEmpty()) {
-        coordinator->openSignIn();
-    } else {
-        coordinator->openAccounts();
-    }
 
+    reloadScreen();
+    
     return myApp.exec();
 }
