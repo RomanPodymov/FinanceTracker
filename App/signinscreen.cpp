@@ -21,12 +21,18 @@ SignInScreen::SignInScreen(QWidget *parent): QWidget(parent),
     signInButton.setText("Sign in");
     registerButton.setText("Register");
     QObject::connect(&signInButton, &QPushButton::clicked, this, [&]() {
-        api->userAPI.signInUser(textFieldLogin.text(), textFieldPassword.text());
+        api->userAPI.signInUser(
+            textFieldLogin.text(),
+            textFieldPassword.text()
+        );
     });
     QObject::connect(&registerButton, &QPushButton::clicked, this, [&]() {
         coordinator->openRegister();
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserSuccess, this, [&]() {
+        auto usr = api->userAPI.user();
+        qDebug() << ((CustomSignInUser*)usr)->someCustomField;
+
         coordinator->openAccounts();
     });
     QObject::connect(&api->userAPI, &BackendlessUserAPI::signInUserErrorBackendless, this, [&]() {
